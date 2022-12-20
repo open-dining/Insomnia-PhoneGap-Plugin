@@ -1,6 +1,7 @@
 package nl.xservices.plugins;
 
 import android.view.WindowManager;
+import android.content.pm.PackageManager;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
@@ -61,6 +62,7 @@ public class Insomnia extends CordovaPlugin {
 			return true;
 
 		} else if (action.equals("test1")) {
+			// This didn't work at all
 			Activity activity = cordova.getActivity();
 			Context context = activity.getApplicationContext();
 
@@ -75,6 +77,8 @@ public class Insomnia extends CordovaPlugin {
 			return true;
 
 		} else if (action.equals("test2")) {
+			// This awakened the device and turned the screen back on!
+			// But it only showed a simple notification, not a fullscreen or anything
 			cordova.getActivity().runOnUiThread(
 				new Runnable() {
 				  public void run() {
@@ -102,7 +106,94 @@ public class Insomnia extends CordovaPlugin {
 				  }
 				});
 			return true;
+		} else if (action.equals("test3")) {
+			// This awakened the device and turned the screen back on!
+			// But it only showed a simple notification, not a fullscreen or anything
+			cordova.getActivity().runOnUiThread(
+				new Runnable() {
+				  public void run() {
+					Activity activity = cordova.getActivity();
+					Context context = activity.getApplicationContext();
 
+					PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+					WakeLock wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "ODN");
+					wakeLock.acquire(2000);
+
+					activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+							WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+							WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+							WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON |
+							WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
+					KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+
+					activity.setShowWhenLocked(true);
+					activity.setTurnScreenOn(true);
+
+					keyguardManager.requestDismissKeyguard(activity, null);
+
+					// Same as test2, but try bringing the activity back
+					PackageManager packageManager = context.getPackageManager();
+					String packageName = activity.getPackageName();
+					Intent intent = pm.getLaunchIntentForPackage(packageName);
+
+					intent.addFlags(
+						Intent.FLAG_ACTIVITY_NEW_TASK |
+						Intent.FLAG_ACTIVITY_SINGLE_TOP |
+						Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+					);
+
+					// Start activity
+					context.startActivity(intent);
+
+					callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+				  }
+				});
+			return true;
+		} else if (action.equals("test4")) {
+				// This awakened the device and turned the screen back on!
+				// But it only showed a simple notification, not a fullscreen or anything
+				cordova.getActivity().runOnUiThread(
+					new Runnable() {
+					  public void run() {
+						Activity activity = cordova.getActivity();
+						Context context = activity.getApplicationContext();
+
+						PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+						WakeLock wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "ODN");
+						wakeLock.acquire(2000);
+
+						activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+								WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+								WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+								WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON |
+								WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
+						KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+
+						activity.setShowWhenLocked(true);
+						activity.setTurnScreenOn(true);
+
+						keyguardManager.requestDismissKeyguard(activity, null);
+
+						// Same as test2, but try bringing the activity back
+						PackageManager packageManager = context.getPackageManager();
+						String packageName = activity.getPackageName();
+						Intent intent = pm.getLaunchIntentForPackage(packageName);
+
+						intent.addFlags(
+							Intent.FLAG_ACTIVITY_NEW_TASK |
+							Intent.FLAG_ACTIVITY_SINGLE_TOP |
+							Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+						);
+
+						// Start activity
+						activity.startActivity(intent);
+
+						callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+					  }
+					});
+				return true;
 		} else if (ACTION_GET_WINDOW_FLAGS.equals(action)) {
 			cordova.getActivity().runOnUiThread(
 				new Runnable() {
