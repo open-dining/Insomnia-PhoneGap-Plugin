@@ -72,6 +72,7 @@ public class Insomnia extends CordovaPlugin {
 			keyguardManager.requestDismissKeyguard(activity, null);
 
 			callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+			return true;
 
 		} else if (action.equals("test2")) {
 			cordova.getActivity().runOnUiThread(
