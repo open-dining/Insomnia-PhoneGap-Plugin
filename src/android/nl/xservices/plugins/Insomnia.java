@@ -14,6 +14,7 @@ import android.icu.util.TimeUnit;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.content.Intent;
 
@@ -29,7 +30,7 @@ public class Insomnia extends CordovaPlugin {
   private static final String ACTION_GET_WINDOW_FLAGS = "getWindowFlags";
 
   @Override
-  public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
+  public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException, SecurityException {
     try {
       if (ACTION_KEEP_AWAKE.equals(action)) {
         cordova.getActivity().runOnUiThread(
@@ -284,7 +285,7 @@ public class Insomnia extends CordovaPlugin {
 			// But it only showed a simple notification, not a fullscreen or anything
 			cordova.getActivity().runOnUiThread(
 				new Runnable() {
-				  public void run() {
+				  public void run() throws SecurityException {
 					Activity activity = cordova.getActivity();
 					Context context = activity.getApplicationContext();
 
