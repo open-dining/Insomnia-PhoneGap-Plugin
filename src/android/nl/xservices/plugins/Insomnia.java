@@ -81,7 +81,7 @@ public class Insomnia extends CordovaPlugin {
 					Context context = activity.getApplicationContext();
 
 					PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-					WakeLock wakelock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "ODN");
+					WakeLock wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "ODN");
 					wakeLock.acquire(2000);
 
 					activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
