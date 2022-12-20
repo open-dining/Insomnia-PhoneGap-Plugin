@@ -11,6 +11,10 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.icu.util.TimeUnit;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+
 public class Insomnia extends CordovaPlugin {
 
   private static final String ACTION_KEEP_AWAKE = "keepAwake";
@@ -77,8 +81,8 @@ public class Insomnia extends CordovaPlugin {
 					Context context = activity.getApplicationContext();
 
 					PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-					WakeLock wakelock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, tag);
-					wakeLock.acquire(TimeUnit.SECONDS.toMillis(5));
+					WakeLock wakelock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "ODN");
+					wakeLock.acquire(2000);
 
 					activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
 							WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
