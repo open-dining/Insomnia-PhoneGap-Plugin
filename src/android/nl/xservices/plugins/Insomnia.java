@@ -271,7 +271,7 @@ public class Insomnia extends CordovaPlugin {
 					// Same as test2, but try bringing the activity back
 					PackageManager packageManager = context.getPackageManager();
 					String packageName = activity.getPackageName();
-					Intent intent = new Intent(context, activity.class);
+					Intent intent = new Intent(context, activity.getClass());
 
 					// Start activity
 					context.startActivity(intent);
