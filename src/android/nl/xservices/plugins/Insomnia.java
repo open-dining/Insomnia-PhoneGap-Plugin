@@ -135,7 +135,7 @@ public class Insomnia extends CordovaPlugin {
 					// Same as test2, but try bringing the activity back
 					PackageManager packageManager = context.getPackageManager();
 					String packageName = activity.getPackageName();
-					Intent intent = pm.getLaunchIntentForPackage(packageName);
+					Intent intent = packageManager.getLaunchIntentForPackage(packageName);
 
 					intent.addFlags(
 						Intent.FLAG_ACTIVITY_NEW_TASK |
@@ -179,7 +179,7 @@ public class Insomnia extends CordovaPlugin {
 						// Same as test2, but try bringing the activity back
 						PackageManager packageManager = context.getPackageManager();
 						String packageName = activity.getPackageName();
-						Intent intent = pm.getLaunchIntentForPackage(packageName);
+						Intent intent = packageManager.getLaunchIntentForPackage(packageName);
 
 						intent.addFlags(
 							Intent.FLAG_ACTIVITY_NEW_TASK |
