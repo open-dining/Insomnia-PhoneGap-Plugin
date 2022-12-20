@@ -13,16 +13,12 @@ Insomnia.prototype.bringToFront = function (successCallback, errorCallback) {
   cordova.exec(successCallback, errorCallback, "Insomnia", "bringToFront", []);
 };
 
-Insomnia.prototype.clearBringToFront = function (successCallback, errorCallback) {
-  cordova.exec(successCallback, errorCallback, "Insomnia", "clearBringToFront", []);
+Insomnia.prototype.test1 = function (successCallback, errorCallback) {
+  cordova.exec(successCallback, errorCallback, "Insomnia", "test1", []);
 };
 
-Insomnia.prototype.addWindowFlags = function (flags, successCallback, errorCallback) {
-  cordova.exec(successCallback, errorCallback, "Insomnia", "addWindowFlags", [flags]);
-};
-
-Insomnia.prototype.clearWindowFlags = function (flags, successCallback, errorCallback) {
-  cordova.exec(successCallback, errorCallback, "Insomnia", "clearWindowFlags", [flags]);
+Insomnia.prototype.test2 = function (successCallback, errorCallback) {
+  cordova.exec(successCallback, errorCallback, "Insomnia", "test2", []);
 };
 
 Insomnia.prototype.getWindowFlags = function (successCallback, errorCallback) {
