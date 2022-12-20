@@ -311,7 +311,7 @@ public class Insomnia extends CordovaPlugin {
 					Log.d("App", "Package: " + packageName);
 
 					// Try window reordering
-					ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+					ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 					List<RunningTaskInfo> recentTasks = activityManager.getRunningTasks(Integer.MAX_VALUE);
 
 					for (int i = 0; i < recentTasks.size(); i++)
